@@ -29,8 +29,9 @@ public class EvaluationService {
 
 	private static boolean isNextCharacterAnAcronymCharacter(char currentChar, char nextChar) {
 		// TODO Auto-generated method stub
-		if(currentChar==' ')
+		if(currentChar==' ') {
 			return true;
+		}
 		return false;
 	}
 
