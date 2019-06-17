@@ -1,7 +1,12 @@
 package com.revature.eval.java.core;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.junit.Rule;
 
 public class EvaluationService {
 
@@ -54,8 +59,49 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
-	}
+		
+		 int score = 0;
+		 for (int i = 0; i < string.length(); i++){
+		     char calculatedLetter = string.toUpperCase().charAt(i);
+		     switch (calculatedLetter) {
+		         case 'A':
+		         case 'E':
+		         case 'I':
+		         case 'L':
+		         case 'N':
+		         case 'O':
+		         case 'R':
+		         case 'S':
+		         case 'T':
+		         case 'U': 
+		             score +=1; break;
+		         case 'D':
+		         case 'G':
+		             score +=2; break;
+		         case 'B':
+		         case 'C':
+		         case 'M':
+		         case 'P':
+		             score +=3; break;
+		         case 'F':
+		         case 'H':
+		         case 'V':
+		         case 'W':
+		         case 'Y':
+		             score +=4; break;
+		         case 'K':
+		             score +=5; break;
+		         case 'J':
+		         case 'X':
+		             score +=8; break;
+		         case 'Q':
+		         case 'Z':
+		             score +=10; break;
+		         default: break;
+		     }
+		 }
+		 return score;
+}
 
 	/**
 	 * 3. Clean up user-entered phone numbers so that they can be sent SMS messages.
@@ -88,11 +134,60 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
+		
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
 		return null;
+		
 	}
+	
+	public class PhoneNumber {
 
+	    private final String number;
+
+	    public PhoneNumber(String phoneNumber) {
+	        number = normalize(extractDigits(phoneNumber));
+	    }
+
+	    private String extractDigits(String dirtyNumber) {
+	        return dirtyNumber.replaceAll("[^\\d]", "");
+	    }
+
+	    private String normalize(String number) {
+	        if(number.length() == 11 && number.startsWith("1")) {
+	            number = number.substring(1, number.length());
+	        }
+
+	        final boolean numberIsValid = (number.length() == 10);
+	        final String normalizedNumber = numberIsValid ? number : "0000000000";
+	        return normalizedNumber;
+	    }
+
+	    public String getNumber() {
+	        return number;
+	    }
+
+	    public String getAreaCode() {
+	        return number.substring(0, 3);
+	    }
+
+	    public String getExchangeCode() {
+	        return number.substring(3, 6);
+	    }
+
+	    public String getSubscriberNumber() {
+	        return number.substring(6, 10);
+	    }
+
+	    public String pretty() {
+	        return "(" + getAreaCode() + ") " + getExchangeCode() + "-" + getSubscriberNumber();
+	    }
+
+	}
+		
+		
+	
+	
 	/**
 	 * 4. Given a phrase, count the occurrences of each word in that phrase.
 	 * 
@@ -104,7 +199,27 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+		
+		Map<String, Integer> count = new HashMap<String, Integer>();
+
+		String[] arr = string.split(",,\n,//s");
+        
+		for(int i=0; i<arr.length; i++) {
+
+			if(count.containsKey(arr[i])) {
+
+				int val = count.get(arr[i]);
+				val = val+1;
+				count.put(arr[i], val);
+			}
+			else {
+
+				count.put(arr[i], 1);							
+			}
+		}
+		return count;	
+	}	
+
 	}
 
 	/**
@@ -142,17 +257,27 @@ public class EvaluationService {
 	 * binary search is a dichotomic divide and conquer search algorithm.
 	 * 
 	 */
-	static class BinarySearch<T> {
+	 class BinarySearch<T> {
+			
 		private List<T> sortedList;
-
-		public int indexOf(T t) {
+		
+		List<T> list = new ArrayList<T>();
+		
+		
+			public int indexOf(T t) {
 			// TODO Write an implementation for this method declaration
+			if(indexOf(t) >=0)
+				System.out.println("Element found at index: " + indexOf(t));
+			else
+	            System.out.println("Insertion point: " + indexOf(t));
 			return 0;
+			
 		}
 
 		public BinarySearch(List<T> sortedList) {
 			super();
 			this.sortedList = sortedList;
+			//Collections.sort(sortedList);
 		}
 
 		public List<T> getSortedList() {
@@ -163,7 +288,7 @@ public class EvaluationService {
 			this.sortedList = sortedList;
 		}
 
-	}
+	
 
 	/**
 	 * 6. An Armstrong number is a number that is the sum of its own digits each
@@ -182,8 +307,27 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+				
+		int n1,rem,num=0;
+		n1=input;
+		while(n1!=0)
+			
+		{
+			rem = n1%10;
+			num+=rem*rem*rem;
+			n1=n1/10;
+			
+		}
+		 if(input==num)
+			 return true;
+		 else
+			 return false;
+				 
 	}
+		 
+
+		
+	
 
 	/**
 	 * 7. Compute the prime factors of a given natural number.
@@ -197,8 +341,29 @@ public class EvaluationService {
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
-	}
+		ArrayList<Long> primeFactors = new ArrayList<Long>();
+		
+		Long max = 100000000L;
+		for(Long x =2L;x<=max;x++) {
+			boolean isPrime = true;
+			for(int y=2;y<x;y++)
+				if(x%y==0) {
+					isPrime = false;
+					break;
+					
+				}
+			if(isPrime)
+				primeFactors.add(x);
+					}
+		
+		return primeFactors;
+						
+			}
+			
+			
+		
+		
+	
 
 
 	/**
@@ -225,19 +390,49 @@ public class EvaluationService {
 	 * rxpyi ldmul cqfnk hlevi gsvoz abwlt gives thequickbrownfoxjumpsoverthelazydog
 	 *
 	 */
+	
 	static class AtbashCipher {
+	      //  encode();
+			
+	       }
+	         	public static String encode(String string) {
+				// TODO Write an implementation for this method declaration
+				 
+				  String reverse = " ";     
+			      for(int i= string.length()-1;i>-1; i--) {
+			    	  reverse += string.charAt(i);
+			      }
+			      
+			      System.out.println("Enter Message:");
+			      String message = string;
+			     
+			      
+			     String Message = message.toUpperCase();
+			       
+				 String encryText = "";
+					for(int i=0;i<message.length();i++) {
+					if(message.charAt(i)==(char)32) {
+						encryText += " ";
+					} else {
+						int count = 0;
+					    for(int j =0;j<string.length();j++) {
+					    	if(message.charAt(i) == string.charAt(j)) {
+					    		encryText += reverse.charAt(j);
+					    		break;
+					    				    		
+					    		  		
+					    		
+					    	}
+					    }
+					    
+					   
+					}
+					 	  
+					}
+					return reverse;	
+			}
 
-		/**
-		 * Question 8
-		 * 
-		 * @param string
-		 * @return
-		 */
-		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
-		}
-
+			
 		/**
 		 * Question 9
 		 * 
@@ -248,7 +443,7 @@ public class EvaluationService {
 			// TODO Write an implementation for this method declaration
 			return null;
 		}
-	}
+	
 
 	/**
 	 * 10. Parse and evaluate simple math word problems returning the answer as an
