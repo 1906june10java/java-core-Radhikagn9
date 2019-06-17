@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.junit.Rule;
 
@@ -137,55 +139,11 @@ public class EvaluationService {
 		
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
-		
-	}
-	
-	public class PhoneNumber {
-
-	    private final String number;
-
-	    public PhoneNumber(String phoneNumber) {
-	        number = normalize(extractDigits(phoneNumber));
-	    }
-
-	    private String extractDigits(String dirtyNumber) {
-	        return dirtyNumber.replaceAll("[^\\d]", "");
-	    }
-
-	    private String normalize(String number) {
-	        if(number.length() == 11 && number.startsWith("1")) {
-	            number = number.substring(1, number.length());
-	        }
-
-	        final boolean numberIsValid = (number.length() == 10);
-	        final String normalizedNumber = numberIsValid ? number : "0000000000";
-	        return normalizedNumber;
-	    }
-
-	    public String getNumber() {
-	        return number;
-	    }
-
-	    public String getAreaCode() {
-	        return number.substring(0, 3);
-	    }
-
-	    public String getExchangeCode() {
-	        return number.substring(3, 6);
-	    }
-
-	    public String getSubscriberNumber() {
-	        return number.substring(6, 10);
-	    }
-
-	    public String pretty() {
-	        return "(" + getAreaCode() + ") " + getExchangeCode() + "-" + getSubscriberNumber();
-	    }
-
+		// String result += (" + getAreaCode() + ") " + getExchangeCode() + "-" + getSubscriberNumber()";
+	 return null;
 	}
 		
-		
+	    
 	
 	
 	/**
@@ -440,10 +398,20 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
-		}
-	
+			
+		       StringBuilder decoded = new StringBuilder();
+		        for (char c : string.toCharArray()) {
+		            if (Character.isLetter(c)) {
+		                int newChar = ('Z' - c) + 'A';
+		                decoded.append((char) newChar);
+		            } else {
+		                decoded.append(c);
+		            }
+		        }
+		        return decoded.toString();
+		    }
+
+				
 
 	/**
 	 * 10. Parse and evaluate simple math word problems returning the answer as an
@@ -474,7 +442,14 @@ public class EvaluationService {
 	 */
 	public int solveWordProblem(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+		 int result = 0;
+		 String[] words = string.split(" ");
+		  
+	        //using java.util.regex Pattern
+	        Pattern pattern = Pattern.compile(" ");
+	        words = pattern.split(string);
+	      //  System.out.println(solveWordProblem().toString(words));
+	        return result;
+	    }
 	}
-
-}
+			
