@@ -14,9 +14,27 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		final StringBuilder sb = new StringBuilder();
+		char currentChar = phrase.charAt(0);
+		sb.append(currentChar);
+		for (int i = 1; i < phrase.length(); i++) {
+			final char nextChar = phrase.charAt(i);
+			if (isNextCharacterAnAcronymCharacter(currentChar, nextChar)) {
+				sb.append(nextChar);
+			}
+			currentChar = nextChar;
+		} 
+		return sb.toString().toUpperCase();
 	}
+
+	private static boolean isNextCharacterAnAcronymCharacter(char currentChar, char nextChar) {
+		// TODO Auto-generated method stub
+		if(currentChar==' ')
+			return true;
+		return false;
+	}
+
+
 
 	/**
 	 * 2. Given a word, compute the scrabble score for that word.

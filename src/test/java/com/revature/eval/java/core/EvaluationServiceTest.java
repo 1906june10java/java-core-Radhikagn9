@@ -1,4 +1,4 @@
-package com.revature.eval.java.core;
+package test.java.com.revature.eval.java.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -13,6 +13,8 @@ import java.util.Map;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import com.revature.eval.java.core.EvaluationService;
 
 public class EvaluationServiceTest {
 
